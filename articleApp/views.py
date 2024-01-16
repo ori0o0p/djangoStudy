@@ -14,5 +14,13 @@ def create_article(request):
         content = request.POST['content']
         article = Article(title=title, content=content)
         article.save()
-        return HttpResponse("게시물 생성완료")
+        return redirect('article_list')
     return render(request, '')
+
+def article_list(request):
+    articles = Article.objects.all()
+    return render(request, '', {"articles": articles})
+
+def article_detail(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    return render(request, '', {"article": article})
