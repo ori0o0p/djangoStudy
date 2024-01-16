@@ -3,5 +3,6 @@ from django.urls import path
 from articleApp import views
 
 urlpatterns = [
-    path('hello/', views.hello_world),
+    path('articles/', views.article_list, name='article_list')
+    
 ]
