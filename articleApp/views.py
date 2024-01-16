@@ -1,3 +1,5 @@
+import json
+
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -10,11 +12,12 @@ def hello_world(request):
 
 def create_article(request):
     if request.method == 'POST':
-        title = request.POST['title']
-        content = request.POST['content']
+        data = json.loads(request.body)
+        title = data['title']
+        content = data['content']
         article = Article(title=title, content=content)
         article.save()
-        return redirect('article_list')
+        return HttpResponse("생성완료")
     return render(request, '')
 
 def article_list(request):
